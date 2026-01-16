@@ -19,23 +19,92 @@
         currentView: 'experience', 
         tab: 'gov', 
         mobileMenu: false,
+        showDetail: false,
+        selectedProject: null,
+        openProject(p) { this.selectedProject = p; this.showDetail = true; },
+        closeProject() { this.showDetail = false; this.selectedProject = null; },
+        catLabel(cat) { return cat === 'gov' ? '政府與國企' : (cat === 'edu' ? '校務研究 IR' : '商業 AI'); },
         projects: [
-            { id: 1, cat: 'gov', title: '台灣自來水公司', sub: '材料管理資訊系統維護暨改版建置案', year: '112-113', role: '專案經理' },
-            { id: 2, cat: 'gov', title: '台灣自來水公司', sub: '112年度材料管理資訊系統維護案', year: '112', role: '專案經理' },
-            { id: 3, cat: 'gov', title: '台灣自來水公司', sub: '113年度材料管理資訊系統維護案', year: '113', role: '專案經理' },
-            { id: 4, cat: 'gov', title: '台灣自來水公司', sub: '113年度財產暨租賃管理資訊系統功能擴充及維護案', year: '113', role: '專案經理' },
-            { id: 5, cat: 'gov', title: '衛生福利部食藥署', sub: '113年度數位化加速生物藥品檢驗放行機制系統建置', year: '113', role: '專案經理' },
-            { id: 6, cat: 'edu', title: '國立陽明交通大學', sub: '2024校務資料倉儲系統維護案', year: '2024', role: '專案經理' },
-            { id: 7, cat: 'edu', title: '國立陽明交通大學', sub: '2025校務資料倉儲系統維護案', year: '2025', role: '專案經理' },
-            { id: 8, cat: 'edu', title: '國立臺北教育大學', sub: '校務研究系統與校務資訊公開網站維護暨功能擴充', year: '113', role: '專案經理' },
-            { id: 9, cat: 'edu', title: '國立臺中教育大學', sub: '校務大數據資料庫系統建置', year: '113', role: '專案經理' },
-            { id: 10, cat: 'edu', title: '僑光科技大學', sub: '教務處資料倉儲系統採購案', year: '112', role: '專案經理' },
-            { id: 11, cat: 'edu', title: '國立聯合大學', sub: '113年各招生管道錄取生報到系統擴充採購案', year: '113', role: '專案經理' },
-            { id: 12, cat: 'edu', title: '國防大學理工學院', sub: '院務研究系統建置', year: '112', role: '專案經理' },
-            { id: 13, cat: 'edu', title: '國防大學理工學院', sub: '院務研究系統維護及擴充', year: '113', role: '專案經理' },
-            { id: 14, cat: 'gov', title: '宜蘭縣政府教育處', sub: '大數據平台維護擴充案', year: '113', role: '專案經理' },
-            { id: 15, cat: 'gov', title: '嘉義市政府', sub: '114嘉義市社區發展協會管理系統建置案', year: '114', role: '專案經理' },
-            { id: 16, cat: 'com', title: '南方莊園渡假飯店', sub: 'AI預測精準行銷系統建置', year: '112', role: '專案經理' }
+            { 
+                id: 1, cat: 'gov', title: '台灣自來水公司', sub: '材料管理資訊系統維護暨改版建置案', year: '112-113', role: '專案經理',
+                items: ['材料管理資訊系統維護暨改版建置案 (112-113)', '112年度材料管理資訊系統維護案', '113年度材料管理資訊系統維護案', '113年度財產暨租賃管理資訊系統功能擴充及維護案'],
+                summary: '負責跨部門協作、需求訪談、時程/風險控管與交付驗收，確保維運與改版同步推進。',
+                responsibilities: ['需求彙整與規格控管（含變更管理）', '跨單位溝通協調與會議主持', '里程碑/風險/議題追蹤與回報', 'UAT 規劃與驗收文件整理'],
+                stack: ['Notion / Jira（可替換）', 'Figma（原型/流程）', 'SQL / ETL（需求溝通層）'],
+                outcomes: ['如期交付維運與擴充項目', '降低重工與需求落差', '提升材料/財產流程可用性']
+            },
+            { 
+                id: 2, cat: 'gov', title: '衛生福利部食藥署', sub: '113年度數位化加速生物藥品檢驗放行機制系統建置', year: '113', role: '專案經理',
+                summary: '推動系統建置流程、釐清角色權限與作業規範，確保需求可落地並可被驗收。',
+                responsibilities: ['利害關係人訪談與需求盤點', '系統流程與資料流梳理', '時程規劃與交付物管理', '驗收測試安排與缺陷追蹤'],
+                stack: ['Figma', 'Notion / Confluence（可替換）'],
+                outcomes: ['需求文件與驗收標準一致化', '提升流程透明度與可追溯性']
+            },
+            { 
+                id: 3, cat: 'gov', title: '嘉義市政府', sub: '114嘉義市社區發展協會管理系統建置案', year: '114', role: '專案經理',
+                summary: '從 0 到 1 規劃系統範疇與交付節點，協助客戶將政策流程轉成可用的線上作業。',
+                responsibilities: ['需求定義、WBS 與里程碑規劃', '協調開發/測試/上線窗口', '教育訓練與上線支援'],
+                stack: ['Figma', 'Notion'],
+                outcomes: ['建立可維運的後台流程', '提升行政作業效率']
+            },
+            { 
+                id: 4, cat: 'edu', title: '國立陽明交通大學', sub: '校務資料倉儲系統維護案', year: '2024-2025', role: '專案經理',
+                items: ['2024校務資料倉儲系統維護案', '2025校務資料倉儲系統維護案'],
+                summary: '維運與需求擴充並行，協助校方把報表/指標需求轉為可追蹤的開發任務。',
+                responsibilities: ['需求評估與排程（含優先級管理）', '資料口徑/指標定義溝通', '維運事件處理與回溯'],
+                stack: ['SQL', 'ETL 概念溝通', 'Notion'],
+                outcomes: ['提升指標一致性', '維運 SLA 更可控']
+            },
+            { 
+                id: 5, cat: 'edu', title: '國立臺北教育大學', sub: '校務研究系統與校務資訊公開網站維護暨功能擴充', year: '113', role: '專案經理',
+                summary: '同時維護 IR 系統與公開網站，確保資料更新流程與對外呈現一致。',
+                responsibilities: ['需求彙整與功能擴充排程', '跨單位溝通（IR/資訊/業務）', '驗收與上線管理'],
+                stack: ['Figma', 'Notion'],
+                outcomes: ['降低對外資訊落差', '提升使用者體驗']
+            },
+            { 
+                id: 6, cat: 'edu', title: '國立臺中教育大學', sub: '校務大數據資料庫系統建置', year: '113', role: '專案經理',
+                summary: '規劃資料整合與建置範疇，協助校方以資料驅動支援決策。',
+                responsibilities: ['資料來源盤點與需求訪談', '指標/報表規格化', '交付物與驗收控管'],
+                stack: ['ETL / Data Warehouse 概念', 'SQL'],
+                outcomes: ['完成資料整合基礎', '提升報表產出效率']
+            },
+            { 
+                id: 7, cat: 'edu', title: '僑光科技大學', sub: '教務處資料倉儲系統採購案', year: '112', role: '專案經理',
+                summary: '協助採購與建置規格對齊，降低後續變更成本。',
+                responsibilities: ['採購規格與需求對齊', '廠商協調與時程控管', '驗收文件整理'],
+                stack: ['Notion'],
+                outcomes: ['降低需求落差', '縮短溝通迭代時間']
+            },
+            { 
+                id: 8, cat: 'edu', title: '國立聯合大學', sub: '113年各招生管道錄取生報到系統擴充採購案', year: '113', role: '專案經理',
+                summary: '針對招生報到流程擴充系統功能，確保尖峰期間穩定運作。',
+                responsibilities: ['流程梳理與需求確認', '上線窗口與回復計畫', '使用單位教育訓練'],
+                stack: ['Figma'],
+                outcomes: ['提升報到流程順暢度', '降低人工處理量']
+            },
+            { 
+                id: 9, cat: 'edu', title: '國防大學理工學院', sub: '院務研究系統建置與維護', year: '112-113', role: '專案經理',
+                items: ['院務研究系統建置 (112)', '院務研究系統維護及擴充 (113)'],
+                summary: '從建置到維運擴充，建立可持續迭代的院務研究平台。',
+                responsibilities: ['需求規劃與版本管理', '利害關係人協調與決策支持', '維運與擴充排程'],
+                stack: ['Figma', 'Notion'],
+                outcomes: ['可持續擴充的 IR 平台', '提升行政與研究指標可視化']
+            },
+            { 
+                id: 10, cat: 'edu', title: '宜蘭縣政府教育處', sub: '大數據平台維護擴充案', year: '113', role: '專案經理',
+                summary: '以教育場域資料需求為核心，推動平台維運與功能擴充交付。',
+                responsibilities: ['需求彙整與排程', '維運事件追蹤與回報', '驗收與交付物管理'],
+                stack: ['ETL 概念溝通', 'Notion'],
+                outcomes: ['提升平台可用性', '加速需求落地']
+            },
+            { 
+                id: 11, cat: 'com', title: '南方莊園渡假飯店', sub: 'AI預測精準行銷系統建置', year: '112', role: '專案經理',
+                summary: '將行銷需求轉成可執行的資料與模型輸出，協調團隊完成端到端交付。',
+                responsibilities: ['需求訪談與 KPI 定義', '資料需求與欄位規格整理', '交付節點控管與驗收'],
+                stack: ['ETL / Data', 'Figma（流程）'],
+                outcomes: ['提升行銷名單精準度', '建立可重複使用的作業流程']
+            }
         ]
       }">
 
@@ -63,7 +132,7 @@
                     <button @click="currentView = 'experience'; mobileMenu = false" 
                             :class="currentView === 'experience' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'"
                             class="w-full flex items-center px-4 py-3 rounded-xl transition-all font-bold text-sm">
-                        <i class="fas fa-briefcase w-8"></i> 專案經歷 (16)
+                        <i class="fas fa-briefcase w-8"></i> 專案經歷 (13)
                     </button>
                     <button @click="currentView = 'portfolio'; mobileMenu = false" 
                             :class="currentView === 'portfolio' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'"
@@ -91,12 +160,12 @@
                 <div class="mb-10">
                     <h3 class="text-sm font-black text-blue-600 tracking-[0.2em] uppercase mb-2">Project History</h3>
                     <h2 class="text-4xl font-extrabold text-slate-900 mb-4">專案經歷總覽</h2>
-                    <p class="text-slate-500 leading-relaxed max-w-3xl">具備兩年實戰經驗，主導超過 16 項跨領域資訊系統開發案。擅長將技術規格轉譯為用戶價值，並確保公部門大型案件準時交付。</p>
+                    <p class="text-slate-500 leading-relaxed max-w-3xl">具備兩年實戰經驗，主導超過 13 項跨領域資訊系統開發案。擅長將技術規格轉譯為用戶價值，並確保公部門大型案件準時交付。</p>
                 </div>
 
                 <div class="flex overflow-x-auto lg:overflow-visible pb-4 mb-8 gap-2 no-scrollbar">
-                    <button @click="tab = 'gov'" :class="tab === 'gov' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500'" class="whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm">政府與國企 (7)</button>
-                    <button @click="tab = 'edu'" :class="tab === 'edu' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500'" class="whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm">校務研究 IR (8)</button>
+                    <button @click="tab = 'gov'" :class="tab === 'gov' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500'" class="whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm">政府與國企 (3)</button>
+                    <button @click="tab = 'edu'" :class="tab === 'edu' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500'" class="whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm">校務研究 IR (7)</button>
                     <button @click="tab = 'com'" :class="tab === 'com' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500'" class="whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm">商業 AI (1)</button>
                 </div>
 
@@ -105,14 +174,24 @@
                         <div class="project-card bg-white p-6 rounded-3xl border border-slate-100 flex flex-col justify-between">
                             <div>
                                 <div class="flex justify-between items-start mb-4">
-                                    <span x-text="p.year + ' 年度'" class="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded"></span>
+                                    <span x-text="(p.year.includes('-') ? p.year : p.year) + ' 年度'" class="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded"></span>
                                     <span x-text="p.role" class="text-[10px] font-bold text-slate-400 border border-slate-200 px-2 py-1 rounded"></span>
                                 </div>
-                                <h4 x-text="p.title" class="text-lg font-bold text-slate-800"></h4>
-                                <p x-text="p.sub" class="text-sm text-slate-500 mt-2 leading-relaxed"></p>
+                                <h4 x-text="p.title" class="text-lg font-bold text-slate-800 mb-2"></h4>
+                                <p x-text="p.sub" class="text-sm text-slate-500 leading-relaxed"></p>
+                                <template x-if="p.items && p.items.length > 0">
+                                    <div class="mt-3 space-y-1.5">
+                                        <template x-for="(item, idx) in p.items" :key="idx">
+                                            <div class="flex items-start text-xs text-slate-400">
+                                                <i class="fas fa-circle text-[4px] mt-1.5 mr-2 text-blue-300"></i>
+                                                <span x-text="item"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
                             </div>
                             <div class="mt-6 pt-4 border-t border-dashed border-slate-100 flex justify-end">
-                                <button class="text-xs font-bold text-blue-600 hover:underline">查看詳情 <i class="fas fa-chevron-right ml-1"></i></button>
+                                <button @click="openProject(p)" class="text-xs font-bold text-blue-600 hover:underline">查看詳情 <i class="fas fa-chevron-right ml-1"></i></button>
                             </div>
                         </div>
                     </template>
@@ -134,7 +213,7 @@
                         <h4 class="text-xl font-bold group-hover:text-blue-600 transition">校務研究數據大屏設計</h4>
                         <p class="text-sm text-slate-500 mt-2">重新架構複雜的數據層級，提供高階主管一目了然的決策儀表板。</p>
                     </div>
-                    </div>
+                </div>
             </section>
 
             <section x-show="currentView === 'about'" x-cloak x-transition.duration.300ms>
@@ -177,6 +256,111 @@
     </div>
 
     <div x-show="mobileMenu" @click="mobileMenu = false" class="fixed inset-0 bg-slate-900/50 z-30 lg:hidden" x-transition.opacity></div>
+
+    <!-- Project Detail Modal -->
+    <div x-show="showDetail" x-cloak class="fixed inset-0 z-[60] flex items-end sm:items-center justify-center" @keydown.escape.window="closeProject()">
+        <div class="absolute inset-0 bg-slate-900/60" @click="closeProject()" x-transition.opacity></div>
+
+        <div class="relative w-full sm:max-w-3xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-100 max-h-[85vh] overflow-hidden"
+             x-transition.duration.200ms>
+            <div class="p-6 sm:p-8 border-b border-slate-100 flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded"
+                              x-text="selectedProject ? catLabel(selectedProject.cat) : ''"></span>
+                        <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded"
+                              x-text="selectedProject ? (selectedProject.year + ' 年度') : ''"></span>
+                        <span class="text-[10px] font-bold text-slate-500 border border-slate-200 px-2 py-1 rounded"
+                              x-text="selectedProject ? selectedProject.role : ''"></span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 truncate" x-text="selectedProject ? selectedProject.title : ''"></h3>
+                    <p class="text-slate-500 mt-2 leading-relaxed" x-text="selectedProject ? selectedProject.sub : ''"></p>
+                </div>
+
+                <button class="shrink-0 w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center justify-center"
+                        @click="closeProject()" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 overflow-y-auto no-scrollbar space-y-8">
+                <template x-if="selectedProject && selectedProject.items && selectedProject.items.length">
+                    <div>
+                        <h4 class="text-sm font-black text-slate-900 mb-3">包含專案</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <template x-for="(item, idx) in selectedProject.items" :key="idx">
+                                <div class="flex items-start gap-2 bg-slate-50 border border-slate-100 rounded-2xl p-3">
+                                    <i class="fas fa-check text-blue-500 mt-0.5"></i>
+                                    <span class="text-sm text-slate-600" x-text="item"></span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <div>
+                    <h4 class="text-sm font-black text-slate-900 mb-3">專案摘要</h4>
+                    <p class="text-slate-600 leading-relaxed"
+                       x-text="selectedProject?.summary || '（可填）用 2-3 句話描述你在此案的目標、挑戰與你帶來的影響。'"></p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="bg-white border border-slate-100 rounded-3xl p-5">
+                        <h4 class="text-sm font-black text-slate-900 mb-3">負責內容</h4>
+                        <template x-if="selectedProject?.responsibilities && selectedProject.responsibilities.length">
+                            <div class="space-y-2">
+                                <template x-for="(r, idx) in selectedProject.responsibilities" :key="idx">
+                                    <div class="flex items-start text-sm text-slate-600">
+                                        <i class="fas fa-circle text-[5px] mt-2 mr-2 text-blue-400"></i>
+                                        <span x-text="r"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <template x-if="!selectedProject?.responsibilities || selectedProject.responsibilities.length === 0">
+                            <p class="text-sm text-slate-500">（可填）列 3-5 點最重要的工作內容。</p>
+                        </template>
+                    </div>
+
+                    <div class="bg-white border border-slate-100 rounded-3xl p-5">
+                        <h4 class="text-sm font-black text-slate-900 mb-3">工具 / 方法</h4>
+                        <template x-if="selectedProject?.stack && selectedProject.stack.length">
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="(t, idx) in selectedProject.stack" :key="idx">
+                                    <span class="bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600" x-text="t"></span>
+                                </template>
+                            </div>
+                        </template>
+                        <template x-if="!selectedProject?.stack || selectedProject.stack.length === 0">
+                            <p class="text-sm text-slate-500">（可填）例如：Figma、Notion、Scrum、需求規格、UAT。</p>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-50 to-white border border-slate-100 rounded-3xl p-5">
+                    <h4 class="text-sm font-black text-slate-900 mb-3">成果（可量化）</h4>
+                    <template x-if="selectedProject?.outcomes && selectedProject.outcomes.length">
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <template x-for="(o, idx) in selectedProject.outcomes" :key="idx">
+                                <div class="flex items-start gap-2 bg-white rounded-2xl border border-slate-100 p-3">
+                                    <i class="fas fa-chart-line text-blue-500 mt-0.5"></i>
+                                    <span class="text-sm text-slate-700" x-text="o"></span>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <template x-if="!selectedProject?.outcomes || selectedProject.outcomes.length === 0">
+                        <p class="text-sm text-slate-500">（可填）例如：準時交付、縮短交付週期、降低重工、提升使用率等。</p>
+                    </template>
+                </div>
+            </div>
+
+            <div class="p-4 sm:p-5 border-t border-slate-100 flex justify-end gap-2 bg-white">
+                <button class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-bold text-slate-700 transition"
+                        @click="closeProject()">返回</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
